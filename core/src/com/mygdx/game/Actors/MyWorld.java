@@ -38,8 +38,6 @@ public class MyWorld extends Group {
     public static final short MONEDA_BIT = 64;
     public static final short POZO_BIT = 128;
 
-    private final Box2DDebugRenderer debugRenderer;
-
     public Personaje personaje;
     public List<Npc> npcs = new ArrayList<>();
     public List<Casa> casas = new ArrayList<>();
@@ -92,7 +90,6 @@ public class MyWorld extends Group {
         this.myStage = stage;
         gameOver = false;
         nakamaStorage = new NakamaStorage(nakamaSessionManager);
-        debugRenderer = new Box2DDebugRenderer(true, true, true, true, true, true);
        crearChat();
 
         initWorld("maps/exterior1.tmx");
@@ -214,20 +211,51 @@ public class MyWorld extends Group {
                         Enemigo enemigo;
                         if (fixB.getFilterData().categoryBits == ENEMIGO_BIT) {
                             enemigo= (Enemigo) fixB.getBody().getUserData();
-                            enemigo.setState(Enemigo.State.Ataque);
-                            if (personaje.getState() != Personaje.State.Ataque){
-                                if (personaje.getVidas() == 1){
-                                    barraVida.setEstadoBarra(personaje.getVidas());
-                                    gameOver = true;
+                            int probabilidadGolpeo = 5;
+                            int numero = (int) (Math.random()*10);
+                            if (numero > probabilidadGolpeo){
+                                enemigo.setState(Enemigo.State.Ataque);
+                                if (personaje.getState() != Personaje.State.Ataque && enemigo.getVidas() >0){
+                                    if (personaje.getVidas() == 1){
+                                        barraVida.setEstadoBarra(personaje.getVidas());
+                                        gameOver = true;
+                                    }else {
+                                        personaje.daño_recivido();
+                                        barraVida.setEstadoBarra(personaje.getVidas());
+                                    }
+                                }
+                            }else {
+                                if (enemigo.getVidas() >= 1){
+                                    enemigo.recivirGolpe();
                                 }else {
-                                    personaje.daño_recivido();
-                                    barraVida.setEstadoBarra(personaje.getVidas());
+                                    removeActor(enemigo);
                                 }
                             }
+
                             System.out.println("Enemigo colisionado " + enemigo);
                         } else {
                             enemigo =(Enemigo) fixA.getBody().getUserData();
-                            enemigo.setState(Enemigo.State.Ataque);
+                            int probabilidadGolpeo = 5;
+                            int numero = (int) (Math.random()*10);
+                            if (numero > probabilidadGolpeo){
+                                enemigo.setState(Enemigo.State.Ataque);
+                                if (personaje.getState() != Personaje.State.Ataque && enemigo.getVidas() >0){
+                                    if (personaje.getVidas() == 1){
+                                        barraVida.setEstadoBarra(personaje.getVidas());
+                                        gameOver = true;
+                                    }else {
+                                        personaje.daño_recivido();
+                                        barraVida.setEstadoBarra(personaje.getVidas());
+                                    }
+                                }
+                            }else {
+                                if (enemigo.getVidas() >= 1){
+                                    enemigo.recivirGolpe();
+                                }else {
+                                    removeActor(enemigo);
+                                }
+                            }
+
                             System.out.println("Enemigo colisionado " + enemigo);
                         }
                         break;
@@ -566,7 +594,6 @@ public class MyWorld extends Group {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        debugRenderer.render(world, camera.combined);
         chat.setPosition(personaje.getX()+248, personaje.getY()+160);
     }
 

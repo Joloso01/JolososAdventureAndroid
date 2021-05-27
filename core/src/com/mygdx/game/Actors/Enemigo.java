@@ -26,6 +26,7 @@ public class Enemigo extends MyActor implements Steerable<Vector2> {
     private static final Animation<TextureRegion> animacionCaminarAbajo = Assets.getAnimation("animAbajoEnemy", 0.2f, Animation.PlayMode.LOOP);
     //Animacion Ataque
     private static final Animation<TextureRegion> ataqueIzquierda = Assets.getAnimation("animAtaqueEnemy", 0.1f, Animation.PlayMode.NORMAL);
+    private int vidas = 4;
 
     private State estado;
     private Direccion direccion;
@@ -48,13 +49,9 @@ public class Enemigo extends MyActor implements Steerable<Vector2> {
     private final int vX = 300;
     private final int vY = 300;
 
-//    Timer timer;
-
     public enum State {
-        Quieto,
         Caminando,
-        Ataque,
-        Curar
+        Ataque
     }
     public enum Direccion {
         Izquerda,
@@ -200,6 +197,14 @@ public class Enemigo extends MyActor implements Steerable<Vector2> {
         if (k != Float.POSITIVE_INFINITY){
             body.setTransform(pos, body.getAngle());
         }
+    }
+
+    public void recivirGolpe() {
+        vidas--;
+    }
+
+    public int getVidas() {
+        return vidas;
     }
 
     @Override
