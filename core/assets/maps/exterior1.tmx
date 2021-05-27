@@ -1024,7 +1024,7 @@
 </data>
  </layer>
  <objectgroup id="4" name="Object Layer 1">
-  <object id="1" name="personaje" type="object" x="800" y="1400.21" width="48" height="48"/>
+  <object id="1" name="personaje" type="object" x="561" y="1599.21" width="48" height="48"/>
   <object id="3" name="pared" type="object" x="385" y="2" width="96" height="2042"/>
   <object id="5" name="pared" type="object" x="294" y="1710" width="1665" height="70"/>
   <object id="6" name="pared" type="object" x="291" y="251" width="1670" height="106"/>
@@ -1078,7 +1078,7 @@
   <object id="66" name="moneda" type="object" x="656" y="1228.5" width="30" height="30"/>
   <object id="67" name="pared" type="object" x="1330" y="343" width="161" height="46"/>
   <object id="68" name="puertaCastillo" type="object" x="1262.5" y="344.5" width="67.5" height="25"/>
-  <object id="69" name="enemigo" type="object" x="588" y="478" width="60" height="60"/>
+  <object id="69" name="enemigo" type="object" x="588" y="478" width="48" height="48"/>
   <object id="70" name="cajas" type="object" x="705.333" y="1472.67" width="30" height="28"/>
   <object id="71" name="fuente" type="object" x="611.33" y="1516" width="25.3333" height="31.3333"/>
   <object id="72" name="cajas" type="object" x="807.333" y="1538.67" width="17" height="12.67"/>
