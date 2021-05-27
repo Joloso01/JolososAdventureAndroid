@@ -33,7 +33,6 @@ public class LoginScreen extends MyScreen {
     public void show() {
         super.show();
 
-        table.setDebug(true);
         Label email = new Label("Email:",Assets.uiSkin);
         TextField emailText = new TextField("",Assets.uiSkin);
         Label password = new Label("Password:",Assets.uiSkin);

@@ -114,7 +114,6 @@ public class MyWorld extends Group {
         chat.add(chatInput).bottom().colspan(2);
 
         chat.setSkin(Assets.uiSkin);
-//        chat.setDebug(true);
 
         chatInput.addCaptureListener(event -> {
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
@@ -299,7 +298,6 @@ public class MyWorld extends Group {
 
         table = new Table(Assets.uiSkin);
         table.setFillParent(true);
-        table.setDebug(true);
         table.setBackground("white");
 
         for (Objeto objeto: lista){
@@ -335,8 +333,6 @@ public class MyWorld extends Group {
 
         }
         addActor(table);
-        table.setPosition(personaje.getX(), personaje.getY());
-
     }
 
     public void showObjetosInventario(List<Objeto> lista) {
@@ -350,7 +346,6 @@ public class MyWorld extends Group {
             Label descripcionValue = new Label(objeto.getDescripcion(), Assets.uiSkin);
             Button borrarObjeto = new Button(Assets.uiSkin);
 
-            table.setDebug(true);
             table.add(image).expand().bottom().fillX().fillY().width(30).height(30);
             table.add(nombreValue);
             table.add(precioValue).width(100);
@@ -501,7 +496,6 @@ public class MyWorld extends Group {
 
         barraVida.setPosition(personaje.getX()-278, personaje.getY()+110);
 
-
         for (Enemigo enemigo : enemigos){
 
             if (personaje != null){
@@ -521,23 +515,11 @@ public class MyWorld extends Group {
                     enemigo.update(delta);
                     System.out.println(enemigo.steeringOutput.linear.toString());
                 }
-
-//                enemigo.update(delta);
-//                Seek<Vector2> seek = new Seek<>(enemigo,personaje);
-//                seek.setEnabled(true);
-//                System.out.println(Enemigo.steeringOutput.linear.toString());
-//                enemigo.setBehavior(seek);
-//                seek.calculateSteering(personaje.steeringOutput);
-//
-//                enemigo.update(delta);
-
-
-
             }
         }
 
-        if (table != null){
-            table.setPosition(personaje.getX()-100, personaje.getY()-100);
+        if (table != null && personaje != null){
+            table.setPosition(personaje.getX(), personaje.getY());
         }
 
         if (reloadMap) {
