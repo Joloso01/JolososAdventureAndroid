@@ -160,10 +160,7 @@ public class MyWorld extends Group {
                             public void result(Object obj) {
 
                                 if (obj.equals(true)) {
-                                    if (personaje != null){
-                                        personaje.setVidas(4);
-                                        barraVida.setEstadoBarra(personaje.getVidas());
-                                    }
+
                                 }
                             }
                         });
