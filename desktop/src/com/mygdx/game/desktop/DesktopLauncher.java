@@ -9,14 +9,14 @@ import com.mygdx.game.JadventureMain;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "Joloso's Adventure The Game";
-		config.addIcon("sprites/ataqueIzquierda_2.png", Files.FileType.Internal);
-		new LwjglApplication(new JadventureMain(), config);
+//		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+//		config.title = "Joloso's Adventure The Game";
+//		config.addIcon("sprites/ataqueIzquierda_2.png", Files.FileType.Internal);
+//		new LwjglApplication(new JadventureMain(), config);
 
-//		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-//		config.setTitle("Joloso's Adventure The Game");
-//		config.setWindowIcon("sprites/ataqueIzquierda_2.png");
-//		new Lwjgl3Application(new JadventureMain(), config);
+		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+		config.setTitle("Joloso's Adventure The Game");
+		config.setWindowIcon("sprites/ataqueIzquierda_2.png");
+		new Lwjgl3Application(new JadventureMain(), config);
 	}
 }
