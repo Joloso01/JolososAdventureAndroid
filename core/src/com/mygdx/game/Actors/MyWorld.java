@@ -129,7 +129,6 @@ public class MyWorld extends Group {
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && chatInput.getText() != null){
                 nakamaSessionManager.enviarMensaje(chatInput.getText());
-                System.out.println("mensaje: "+chatInput.getText()+" enviado.");
             }
             return false;
         });
@@ -149,18 +148,12 @@ public class MyWorld extends Group {
 
                         addActor(dialog = new MyDialog("Mercader", "Quieres ver los articulos de la tienda?", "Yes", true, "No", false, camera.viewportWidth, 200) {
                             public void result(Object obj) {
-                                System.out.println("result " + obj);
-                                System.out.println(obj);
 
                                 if (obj.equals(true)) {
-                                    System.out.println("verdadero");
 //                                    nakamaStorage.crearObjeto("objetoPrueba",100f, "el melhor objeto do mondo");
 //                                    nakamaStorage.crearObjeto("objetoPrueba2",200f, "el melhor objeto do mondo2");
 //                                    nakamaStorage.crearObjeto("objetoPrueba3",300f, "el melhor objeto do mondo3");
                                     showObjetos(nakamaStorage.getObjetosTienda());
-
-                                } else{
-                                    System.out.println("falso");
                                 }
                             }
                         });
@@ -169,15 +162,12 @@ public class MyWorld extends Group {
                     case PERSONAJE_BIT | POZO_BIT:
                         addActor(dialog = new MyDialog("Pozo", "Quieres Beber del pozo?", "Yes", true, "No", false, camera.viewportWidth, 200) {
                             public void result(Object obj) {
-                                System.out.println("result " + obj);
-                                System.out.println(obj);
 
                                 if (obj.equals(true)) {
-                                    System.out.println("*beber fuente*");
-
-
-                                } else{
-                                    System.out.println("falso");
+                                    if (personaje != null){
+                                        personaje.setVidas(4);
+                                        barraVida.setEstadoBarra(personaje.getVidas());
+                                    }
                                 }
                             }
                         });
@@ -188,21 +178,17 @@ public class MyWorld extends Group {
                         if (fixB.getFilterData().categoryBits == PUERTA_BIT) {
                             puertaCambio = (Puerta) fixB.getBody().getUserData();
                             reloadMap = true;
-                            System.out.println("COLISION CON PUERTA " + puertaCambio);
                         } else {
                             puertaCambio = (Puerta) fixA.getBody().getUserData();
                             reloadMap = true;
-                            System.out.println("COLISION CON PUERTA " + puertaCambio);
                         }
                         break;
 
                     case MONEDA_BIT | PERSONAJE_BIT:
                         if (fixB.getFilterData().categoryBits == MONEDA_BIT) {
-                            System.out.println("coger moneda");
                             monedasContacto.add(fixB.getBody());
                             limpiarMoneda = true;
                         } else {
-                            System.out.println("AAH");
                         }
 
                         break;
@@ -232,7 +218,6 @@ public class MyWorld extends Group {
                                 }
                             }
 
-                            System.out.println("Enemigo colisionado " + enemigo);
                         } else {
                             enemigo =(Enemigo) fixA.getBody().getUserData();
                             int probabilidadGolpeo = 5;
@@ -255,8 +240,6 @@ public class MyWorld extends Group {
                                     removeActor(enemigo);
                                 }
                             }
-
-                            System.out.println("Enemigo colisionado " + enemigo);
                         }
                         break;
                 }
@@ -354,7 +337,6 @@ public class MyWorld extends Group {
             button.addListener(event -> {
                 if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
                     nakamaStorage.comprarObjeto(objeto.getNombre());
-                    System.out.println("se ha comprado el objeto: "+objeto.getNombre());
                 }
                 return false;
             });
@@ -406,7 +388,6 @@ public class MyWorld extends Group {
 
     private void  clearObjects(List<MyActor> actorlist){
         for(MyActor actor:actorlist) {
-            System.out.println("ELIMINANDO ACTOR.....");
             world.destroyBody(actor.body);
             actor.clearActions();
             removeActor(actor);
@@ -427,12 +408,10 @@ public class MyWorld extends Group {
 
         removeActor(personaje);
         removeActor(map);
-        System.out.println("CARGANDO " + puertaCambio.map + " : " + puertaCambio.name);
         initWorld(puertaCambio.map);
     }
 
     public void addPersonaje(Fixture fixture, MapObject mapObject) {
-        System.out.println("AÑADIENDO PERASONALEEEEE ...");
         addActor(personaje = new Personaje(fixture, mapObject));
     }
 
@@ -473,11 +452,9 @@ public class MyWorld extends Group {
     }
 
     public void addPuerta(Fixture fixture, String res, String name) {
-        System.out.println("Añadiendo puerta " + name + " hacia " + res);
         Puerta puerta = new Puerta(fixture, name);
         puerta.map = res;
         puertas.add(puerta);
-        puertas.forEach(System.out::println);
         addActor(puerta);
     }
 
@@ -529,19 +506,14 @@ public class MyWorld extends Group {
             if (personaje != null){
                 if (enemigo.getBehavior() == null){
                     pursue = new Pursue<>(enemigo, personaje, 3f);
-                    System.out.println(pursue.getTarget());
                     pursue.setEnabled(true);
                     enemigo.setBehavior(pursue);
 
-                    System.out.println(personaje.steeringOutput.linear.toString());
                     enemigo.steeringOutput = pursue.calculateSteering(personaje.steeringOutput);
                     enemigo.update(delta);
-                    System.out.println(enemigo.steeringOutput.linear.toString());
                 }else {
-                    System.out.println(personaje.steeringOutput.linear.toString());
                     pursue.calculateSteering(personaje.steeringOutput);
                     enemigo.update(delta);
-                    System.out.println(enemigo.steeringOutput.linear.toString());
                 }
             }
         }
