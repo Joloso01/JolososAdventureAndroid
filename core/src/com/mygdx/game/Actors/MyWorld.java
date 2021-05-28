@@ -148,11 +148,7 @@ public class MyWorld extends Group {
 
                         addActor(dialog = new MyDialog("Mercader", "Quieres ver los articulos de la tienda?", "Yes", true, "No", false, camera.viewportWidth, 200) {
                             public void result(Object obj) {
-
                                 if (obj.equals(true)) {
-//                                    nakamaStorage.crearObjeto("objetoPrueba",100f, "el melhor objeto do mondo");
-//                                    nakamaStorage.crearObjeto("objetoPrueba2",200f, "el melhor objeto do mondo2");
-//                                    nakamaStorage.crearObjeto("objetoPrueba3",300f, "el melhor objeto do mondo3");
                                     showObjetos(nakamaStorage.getObjetosTienda());
                                 }
                             }
